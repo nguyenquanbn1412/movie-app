@@ -1,8 +1,6 @@
 package com.example.movieapp.rest;
 
-import com.example.movieapp.model.request.CreateUserRequest;
-import com.example.movieapp.model.request.UpdatePasswordRequest;
-import com.example.movieapp.model.request.UpdateProfileUserRequest;
+import com.example.movieapp.model.request.*;
 import com.example.movieapp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,5 +28,17 @@ public class UserApi {
     @PostMapping("/admin/users")
     ResponseEntity<?> createUser(@Valid @RequestBody CreateUserRequest request) {
         return ResponseEntity.ok(userService.createUser(request));
+    }
+
+    ///////////////
+    @PutMapping("/{id}")
+    ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable Integer id) {
+        return ResponseEntity.ok(userService.updateUserFromAdmin(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<?> deleteUser (@PathVariable Integer id) {
+        userService.resetPasswordUserFromAdmin(id);
+        return ResponseEntity.ok().build();
     }
 }

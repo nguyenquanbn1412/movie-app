@@ -2,9 +2,11 @@ package com.example.movieapp.service;
 
 import com.example.movieapp.entity.User;
 import com.example.movieapp.exception.BadRequestException;
+import com.example.movieapp.exception.ResourceNotFoundException;
 import com.example.movieapp.model.request.CreateUserRequest;
 import com.example.movieapp.model.request.UpdatePasswordRequest;
 import com.example.movieapp.model.request.UpdateProfileUserRequest;
+import com.example.movieapp.model.request.UpdateUserRequest;
 import com.example.movieapp.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -71,5 +73,18 @@ public class UserService {
                 .updatedAt(LocalDateTime.now())
                 .build();
         return userRepository.save(user);
+    }
+    public User updateUserFromAdmin(Integer id, UpdateUserRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User không tồn tại!"));
+        user.setName(request.getName());
+        user.setRole(user.getRole());
+        user.setUpdatedAt(LocalDateTime.now());
+        return userRepository.save(user);
+    }
+    public void resetPasswordUserFromAdmin(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User không tồn tại!"));
+        user.setPassword(passwordEncoder.encode("123"));
     }
 }

@@ -79,7 +79,8 @@ public class EpisodeService {
         Episode episode = episodeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy tập phim có id = " + id));
 
-        if (!episode.getDisplayOrder().equals(request.getDisplayOrder()) && episodeRepository.existsByMovie_IdAndDisplayOrder(episode.getMovie().getId(), request.getDisplayOrder())) {
+        if (!episode.getDisplayOrder().equals(request.getDisplayOrder())
+                && episodeRepository.existsByMovie_IdAndDisplayOrder(episode.getMovie().getId(), request.getDisplayOrder())) {
             throw new BadRequestException("Thứ tự tập phim không được trùng nhau");
         }
 
