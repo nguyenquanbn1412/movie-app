@@ -47,9 +47,9 @@ btnReset.addEventListener('click', () => {
 
     axios.put(`/api/admin/users/${user.id}/reset-password`)
         .then(res => {
-            toastr.success("Cập nhật thông tin thành công");
+            toastr.success("Reset mật khẩu thành công");
         })
         .catch(err => {
-            toastr.error("Cập nhật thông tin thất bại");
+            toastr.error("Reset mật khẩu thất bại");
         })
 })
