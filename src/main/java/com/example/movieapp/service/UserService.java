@@ -86,5 +86,6 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User không tồn tại!"));
         user.setPassword(passwordEncoder.encode("123"));
+        userRepository.save(user);
     }
 }

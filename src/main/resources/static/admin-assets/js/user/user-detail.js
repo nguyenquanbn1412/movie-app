@@ -22,7 +22,6 @@ $('#form-update-user').validate({
         $(element).removeClass('is-invalid');
     }
 });
-
 // Xử lý submit form
 const btnUpdate = document.getElementById('btn-update');
 const btnReset = document.getElementById('btn-reset-password');
@@ -35,7 +34,8 @@ btnUpdate.addEventListener('click', () => {
         name: nameEl.value,
         role: roleEl.value,
     }
-    axios.put(`/api/admin/users/${id}`, data)
+
+    axios.put(`/api/admin/users/${user.id}`, data)
         .then(res => {
             toastr.success("Cập nhật thông tin thành công");
         })
@@ -45,7 +45,7 @@ btnUpdate.addEventListener('click', () => {
 })
 btnReset.addEventListener('click', () => {
 
-    axios.delete(`/api/admin/users/${id}`, data)
+    axios.put(`/api/admin/users/${user.id}/reset-password`)
         .then(res => {
             toastr.success("Cập nhật thông tin thành công");
         })

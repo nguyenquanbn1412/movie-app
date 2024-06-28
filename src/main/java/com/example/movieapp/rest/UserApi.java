@@ -31,13 +31,13 @@ public class UserApi {
     }
 
     ///////////////
-    @PutMapping("/{id}")
+    @PutMapping("/admin/users/{id}")
     ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserRequest request, @PathVariable Integer id) {
         return ResponseEntity.ok(userService.updateUserFromAdmin(id, request));
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteUser (@PathVariable Integer id) {
+    @PutMapping("/admin/users/{id}/reset-password")
+    ResponseEntity<?> resetPassword(@PathVariable Integer id) {
         userService.resetPasswordUserFromAdmin(id);
         return ResponseEntity.ok().build();
     }
